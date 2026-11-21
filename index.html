@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="按标准 C++、Unreal C++、Vulkan 和 HLSL 分模块的中文自查手册，支持搜索、分类筛选、示例和注意事项。">
+  <meta name="description" content="按标准 C++、Unreal C++、图形学、Vulkan 和 HLSL 分模块的中文自查手册，支持搜索、分类筛选、公式、示例和注意事项。">
   <title>自查手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2323343f'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='monospace' font-size='24' fill='%23f4f8f8'%3E查%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./src/style.css">
@@ -16,7 +16,7 @@
       <span>自查手册</span>
       <span class="version">C++ · GPU</span>
     </a>
-    <div class="header-note">标准 C++ · Unreal C++ · Vulkan · HLSL</div>
+    <div class="header-note">标准 C++ · Unreal C++ · 图形学 · Vulkan · HLSL</div>
   </header>
 
   <div class="page-shell" id="top">
@@ -32,13 +32,13 @@
 
     <main id="handbook">
       <section class="intro" aria-labelledby="pageTitle">
-        <div class="intro-kicker">STANDARD C++ · UNREAL C++ · VULKAN · HLSL</div>
+        <div class="intro-kicker">STANDARD C++ · UNREAL C++ · GRAPHICS · VULKAN · HLSL</div>
         <h1 id="pageTitle">查得到，看得懂，<br>能直接放进代码里。</h1>
-        <p class="intro-copy">按技术模块和用途整理常用 API、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
+        <p class="intro-copy">按技术模块和用途整理常用 API、图形学数学、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
         <div class="stats" aria-label="手册概况">
-          <span><strong id="totalCount">115</strong> 个常用主题</span>
-          <span><strong id="categoryCount">14</strong> 个用途分类</span>
-          <span><strong>4</strong> 个技术模块</span>
+          <span><strong id="totalCount">145</strong> 个常用主题</span>
+          <span><strong id="categoryCount">20</strong> 个用途分类</span>
+          <span><strong id="moduleCount">5</strong> 个技术模块</span>
         </div>
       </section>
 
@@ -62,12 +62,21 @@
           <a data-module="unreal" href="#api-ue-spawn-actor"><span>在世界里生成 Actor</span><code>SpawnActor</code></a>
           <a data-module="unreal" href="#api-ue-tobject-ptr"><span>保存 UObject 引用</span><code>TObjectPtr</code></a>
           <a data-module="unreal" href="#api-ue-dynamic-delegate"><span>广播 Gameplay 事件</span><code>动态委托</code></a>
+          <a data-module="graphics" href="#api-gfx-dot-projection"><span>计算向量夹角</span><code>dot / projection</code></a>
+          <a data-module="graphics" href="#api-gfx-matrix-composition"><span>检查 MVP 顺序</span><code>P · V · M</code></a>
+          <a data-module="graphics" href="#api-gfx-normal-matrix"><span>修正缩放后的法线</span><code>inverse transpose</code></a>
+          <a data-module="graphics" href="#api-gfx-barycentric"><span>插值三角形属性</span><code>barycentric</code></a>
+          <a data-module="graphics" href="#api-gfx-perspective-correct"><span>校正透视 UV</span><code>perspective correct</code></a>
+          <a data-module="graphics" href="#api-gfx-moller-trumbore"><span>射线拾取三角形</span><code>Möller–Trumbore</code></a>
+          <a data-module="graphics" href="#api-gfx-ray-aabb"><span>测试 BVH 包围盒</span><code>ray / AABB</code></a>
+          <a data-module="graphics" href="#api-gfx-cosine-hemisphere"><span>生成路径追踪方向</span><code>cosine hemisphere</code></a>
         </div>
       </section>
 
       <section class="reading-note" aria-labelledby="noteTitle">
         <h2 id="noteTitle">先读这一条</h2>
         <p>标准 C++ 模块以 C++20 为版本边界，C++23 工具不混入其中。Unreal C++ 模块采用 <strong>UE5 常见写法</strong>，实际语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
+        <p>图形学模块默认采用<strong>列向量、右乘矩阵、先右后左</strong>的记法；涉及相机或投影时会单独说明手性、观察方向和深度范围。代码是省略具体向量库的计算示例，接入引擎前先核对坐标约定。</p>
         <p>Vulkan 与 HLSL 已建立独立模块入口，当前标记为“待补充”。Unreal 内容综合 <a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> 与 <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman 的 Unreal C++ 指南</a>。</p>
       </section>
 
@@ -106,9 +115,10 @@
       <div id="apiContent"></div>
 
       <footer>
-        <p>当前内容按 C++20 标准库和 UE5 常用 Gameplay 功能整理。示例以说明语义为主，实际项目还需补齐类型定义、模块依赖、错误处理和版本适配。</p>
+        <p>当前内容按 C++20 标准库、UE5 常用 Gameplay 功能和图形学数学基础整理。示例以说明语义为主，实际项目还需补齐类型定义、模块依赖、错误处理、坐标约定和版本适配。</p>
         <p>C++ 查证：<a href="https://en.cppreference.com/w/cpp/standard_library" target="_blank" rel="noreferrer">cppreference 标准库索引</a> · <a href="https://en.cppreference.com/w/cpp/ranges" target="_blank" rel="noreferrer">Ranges 参考</a></p>
         <p>Unreal 查证：<a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> · <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman Unreal C++ Guide</a></p>
+        <p>图形学查证：<a href="https://github.com/Xhd107/Fundamentals-Of-Computer-Graphics-5th-CN" target="_blank" rel="noreferrer">虎书第五版中文笔记</a> · <a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html" target="_blank" rel="noreferrer">GAMES101 官方课程</a> · <a href="https://www.wolai.com/fkGSwxLu2pjWD7kiBY1V7W" target="_blank" rel="noreferrer">RTR4 阅读笔记</a></p>
       </footer>
     </main>
   </div>

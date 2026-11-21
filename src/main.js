@@ -48,7 +48,7 @@ function renderApi(api) {
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
         </dl>
         <div class="code-heading">
-          <span>示例</span>
+          <span>${escapeHtml(api.codeLabel ?? '示例')}</span>
           <button class="copy-button" type="button" data-copy="${escapeHtml(api.id)}" aria-label="复制 ${escapeHtml(api.name)} 的示例代码">复制代码</button>
         </div>
         <pre><code>${escapeHtml(api.code)}</code></pre>
@@ -100,6 +100,7 @@ function renderHandbook() {
 
   byId('totalCount').textContent = apis.length;
   byId('categoryCount').textContent = categories.length;
+  byId('moduleCount').textContent = modules.length;
   renderModuleTabs();
   renderCategoryControls();
 }
