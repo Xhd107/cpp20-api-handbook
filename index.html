@@ -64,6 +64,7 @@
           <a data-module="unreal" href="#api-ue-dynamic-delegate"><span>广播 Gameplay 事件</span><code>动态委托</code></a>
           <a data-module="graphics" href="#api-gfx-dot-projection"><span>计算向量夹角</span><code>dot / projection</code></a>
           <a data-module="graphics" href="#api-gfx-matrix-composition"><span>检查 MVP 顺序</span><code>P · V · M</code></a>
+          <a data-module="graphics" href="#api-gfx-rodrigues-rotation"><span>绕任意轴旋转向量</span><code>Rodrigues</code></a>
           <a data-module="graphics" href="#api-gfx-normal-matrix"><span>修正缩放后的法线</span><code>inverse transpose</code></a>
           <a data-module="graphics" href="#api-gfx-barycentric"><span>插值三角形属性</span><code>barycentric</code></a>
           <a data-module="graphics" href="#api-gfx-perspective-correct"><span>校正透视 UV</span><code>perspective correct</code></a>
@@ -80,7 +81,7 @@
       <section class="reading-note" aria-labelledby="noteTitle">
         <h2 id="noteTitle">先读这一条</h2>
         <p>标准 C++ 模块以 C++20 为版本边界，C++23 工具不混入其中。Unreal C++ 模块采用 <strong>UE5 常见写法</strong>，实际语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
-        <p>图形学模块默认使用<strong>列向量</strong>，矩阵写在向量左侧，例如 <code>p′ = M p</code>。多个变换从右往左应用。涉及相机或投影时会标注手性、观察方向和深度范围。计算示例省略了具体向量库，接入引擎前先核对坐标约定。</p>
+        <p>图形学词条先展示公式和推导，可按需展开 C++ 或 HLSL 示例。C++ 示例中的 <code>Vec3</code>、<code>Mat4</code> 等类型由项目的数学库提供。公式默认使用<strong>列向量</strong>，例如 <code>p′ = M p</code>，多个变换从右往左应用。</p>
         <p>Vulkan 与 HLSL 已建立独立模块入口，当前标记为“待补充”。Unreal 内容综合 <a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> 与 <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman 的 Unreal C++ 指南</a>。</p>
       </section>
 

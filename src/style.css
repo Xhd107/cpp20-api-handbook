@@ -298,7 +298,7 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color
 }
 .api-card:target { border-color: var(--accent); }
 .api-card[open] { border-color: color-mix(in oklab, var(--accent) 45%, var(--line)); }
-.api-card summary {
+.api-card > summary {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -309,8 +309,8 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color
   cursor: pointer;
   list-style: none;
 }
-.api-card summary::-webkit-details-marker { display: none; }
-.api-card summary::after {
+.api-card > summary::-webkit-details-marker { display: none; }
+.api-card > summary::after {
   content: "+";
   position: absolute;
   right: 20px;
@@ -318,8 +318,8 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color
   color: var(--muted);
   font: 400 24px/1 "Cascadia Code", Consolas, monospace;
 }
-.api-card[open] summary::after { content: "−"; }
-.api-card summary:hover { background: color-mix(in oklab, var(--line) 45%, transparent); }
+.api-card[open] > summary::after { content: "−"; }
+.api-card > summary:hover { background: color-mix(in oklab, var(--line) 45%, transparent); }
 .api-title { min-width: 0; }
 .api-name { display: block; color: var(--text); font: 700 17px/1.45 "Cascadia Code", Consolas, monospace; overflow-wrap: anywhere; }
 .api-brief { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
@@ -335,6 +335,21 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color
   font-size: 13px;
   white-space: pre-wrap;
 }
+.api-theory { margin: 20px 0; }
+.api-theory h3 { margin: 0 0 14px; font-size: 16px; }
+.api-theory p { margin: 12px 0 8px; font-size: 14px; line-height: 1.75; }
+.math-formula { overflow-x: auto; margin: 8px 0; border-radius: 6px; background: var(--surface); }
+.math-formula .katex-display {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  padding: 12px;
+  font-size: 15px;
+}
+.api-example { margin-top: 16px; }
+.api-example > summary { padding: 8px 0; cursor: pointer; font-size: 14px; font-weight: 600; }
+.api-example > summary .badge { margin-inline-start: 4px; }
+.api-example > .code-heading { margin-top: 6px; }
 .api-facts { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px; }
 .fact { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
 .fact dt { color: var(--text); font-size: 13px; font-weight: 700; }
@@ -442,9 +457,9 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
   #resultCount { width: 100%; margin-bottom: 4px; }
   .section-heading { align-items: flex-start; }
   .section-heading h2 { font-size: 23px; }
-  .api-card summary { grid-template-columns: 1fr; padding: 16px 44px 16px 16px; }
+  .api-card > summary { grid-template-columns: 1fr; padding: 16px 44px 16px 16px; }
   .badges { justify-content: flex-start; }
-  .api-card summary::after { top: 20px; right: 16px; }
+  .api-card > summary::after { top: 20px; right: 16px; }
   .api-body { padding: 0 14px 16px; }
   .api-name { font-size: 15px; }
   .fact { grid-template-columns: 1fr; gap: 2px; }

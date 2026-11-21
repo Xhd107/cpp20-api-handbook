@@ -6,7 +6,7 @@
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制；C++20 新增筛选仅用于标准 C++。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
-图形学模块从实现时常遇到的问题出发，整理区间映射、浮点误差、向量与矩阵、坐标空间转换、投影与深度、射线求交、着色与采样。每条给出公式、计算示例和易错点，涉及坐标约定时一并注明。
+图形学模块从实现时常遇到的问题出发，整理区间映射、浮点误差、向量与矩阵、坐标空间转换、投影与深度、射线求交、着色与采样。打开条目可先读 LaTeX 公式和推导，再按需展开 C++ 或 HLSL 示例。
 
 ## 本地运行
 
@@ -38,15 +38,17 @@ npm run build
 - `src/data-unreal.js`：Unreal 反射宏、对象生命周期、引用类型和 Gameplay 工具
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样
 - `src/data-graphics-math.js`：标量插值、数值误差、常用几何查询、逆变换、深度重建与切线空间
+- `src/data-graphics-theory.js`：按条目 ID 保存数学解释和 LaTeX 公式，由 KaTeX 渲染
 - `src/main.js`：模块切换、渲染、搜索、筛选和交互
 - `src/style.css`：页面样式与移动端适配
 
-新增条目时，为数据对象补齐名称、分类、头文件、版本、优先级、说明、返回值、注意事项、示例和检索词。条目 ID 必须唯一。新增技术领域时，可继续拆分独立数据模块并添加用途分类，不必改动现有条目。
+新增条目时补齐名称、分类、头文件或相关工具、适用版本、优先级、说明、返回值、注意事项、示例和检索词。条目 ID 必须唯一。文档里的代码示例使用 C++ 或 HLSL，默认显示 C++，HLSL 示例需注明 `codeLanguage: 'hlsl'`。图形学词条还需在 `src/data-graphics-theory.js` 按 ID 加入说明与 LaTeX 公式。每一步使用 `[说明, 公式, ...]`，公式使用 `tex` 标签模板，直接写 LaTeX。
 
 ## 图形学参考资料
 
 - [Fundamentals of Computer Graphics 5th 中文笔记](https://github.com/Xhd107/Fundamentals-Of-Computer-Graphics-5th-CN)
 - [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html)
+- [Modern Robotics：Rodrigues 旋转公式](https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-2-3-exponential-coordinates-of-rotation-part-2-of-2/)
 - [Real-Time Rendering 4th 阅读笔记](https://www.wolai.com/fkGSwxLu2pjWD7kiBY1V7W)
 - [PBRT 4e：应用变换](https://www.pbr-book.org/4ed/Geometry_and_Transformations/Applying_Transformations)、[形状采样接口](https://www.pbr-book.org/4ed/Shapes/Basic_Shape_Interface)
 - [Khronos：Vulkan 裁剪与视口变换](https://docs.vulkan.org/spec/latest/chapters/vertexpostproc.html)、[glTF 2.0 规范](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)
@@ -57,6 +59,7 @@ npm run build
 ## Unreal 参考资料
 
 - [Epic：虚幻引擎 C++ 编程](https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN)
+- [Epic：Unreal 模块和 Build.cs](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-modules)
 - [Tom Looman：Unreal Engine C++ Guide](https://tomlooman.com/unreal-engine-cpp-guide/)
 - [Epic：字符串处理](https://dev.epicgames.com/documentation/unreal-engine/string-handling-in-unreal-engine?lang=zh-CN)
 - [Epic：委托与 Lambda](https://dev.epicgames.com/documentation/unreal-engine/delegates-and-lambda-functions-in-unreal-engine?lang=zh-CN)

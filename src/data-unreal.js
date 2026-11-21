@@ -134,23 +134,17 @@ AActor* Actor = nullptr;  // 对象指针通常用 -> 访问`,
     keywords: 'U++ Unreal 前缀 AActor UObject FVector FHitResult E T I 命名规范'
   },
   {
-    id: 'ue-modules', category: 'ue-core', name: '*.Build.cs / 模块依赖', header: 'MyGame.Build.cs（C#）', since: 'UnrealBuildTool', level: 'B',
+    id: 'ue-modules', category: 'ue-core', name: '*.Build.cs / 模块依赖', header: 'Components/StaticMeshComponent.h · Engine 模块', since: 'UnrealBuildTool', level: 'B',
     brief: 'UnrealBuildTool 用 Build.cs 配置模块及依赖。使用其他模块的公开类型前，既要包含头文件，也要声明模块依赖。',
-    signature: 'PublicDependencyModuleNames.AddRange(new string[] { "Core", "Engine" });',
-    returns: '构建脚本没有 C++ 返回值；Public 依赖会传给依赖本模块的其他模块，Private 依赖只供本模块使用。',
-    pitfall: 'Build.cs 是 C# 而不是 C++。出现“类型未定义”或链接错误时，检查模块名、头文件和 Public/Private 依赖，不要盲目重复 include。',
-    code: `using UnrealBuildTool;
+    signature: '#include "Components/StaticMeshComponent.h"',
+    returns: '如果模块的公开头文件需要某项依赖，在 Build.cs 中把它加到 PublicDependencyModuleNames。只在 .cpp 或私有头文件中使用时，加到 PrivateDependencyModuleNames。',
+    pitfall: '头文件和模块依赖各自需要声明。遇到“类型未定义”或链接错误时，检查类型所属模块、头文件路径，以及依赖是否放进了正确的列表。',
+    code: `// MyGame/Private/MeshTools.cpp
+// 若仅在私有实现里用到 Engine，在 MyGame.Build.cs 声明私有依赖。
+#include "Components/StaticMeshComponent.h"
 
-public class MyGame : ModuleRules
-{
-    public MyGame(ReadOnlyTargetRules Target) : base(Target)
-    {
-        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-        PublicDependencyModuleNames.AddRange(
-            new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
-        PrivateDependencyModuleNames.AddRange(
-            new string[] { "UMG", "GameplayTasks" });
-    }
+void HideMesh(UStaticMeshComponent& mesh) {
+    mesh.SetVisibility(false);
 }`,
     keywords: 'U++ Unreal Build.cs UnrealBuildTool Module PublicDependency PrivateDependency 模块 链接错误'
   },

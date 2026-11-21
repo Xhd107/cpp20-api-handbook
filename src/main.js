@@ -1,3 +1,5 @@
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import { apis, categories, modules } from './data.js';
 
 const byId = (id) => document.getElementById(id);
@@ -14,7 +16,7 @@ const currentModuleApis = () => apis.filter((api) => getApiDomain(api) === activ
 const searchText = new Map(apis.map((api) => [
   api.id,
   [api.name, api.header, api.since, api.level, api.brief, api.signature,
-    api.returns, api.pitfall, api.code, api.keywords,
+    api.returns, api.pitfall, api.code, api.keywords, api.theory?.flat().join(' '),
     categoryById.get(api.category)?.title ?? '',
     modules.find((module) => module.id === getApiDomain(api))?.title ?? '']
     .join(' ').toLocaleLowerCase()
@@ -29,6 +31,37 @@ function badge(label, className = '') {
   return `<span class="badge ${className}">${escapeHtml(label)}</span>`;
 }
 
+function renderTheory(api) {
+  if (!api.theory) {
+    return `<div class="signature"><code>${escapeHtml(api.signature)}</code></div>`;
+  }
+
+  return `<section class="api-theory" aria-label="数学与推导">
+    <h3>数学与推导</h3>
+    ${api.theory.map(([explanation, ...formulas]) => `
+      <p>${escapeHtml(explanation)}</p>
+      ${formulas.map((formula) => `<div class="math-formula">${katex.renderToString(formula, {
+        displayMode: true,
+        throwOnError: false
+      })}</div>`).join('')}`).join('')}
+  </section>`;
+}
+
+function renderCodeExample(api) {
+  const language = api.codeLanguage ?? 'cpp';
+  const label = language === 'hlsl' ? 'HLSL' : 'C++';
+  const code = `<div class="code-heading">
+      <span>${api.theory ? '实现片段' : label + ' 示例'}</span>
+      <button class="copy-button" type="button" data-copy="${escapeHtml(api.id)}" aria-label="复制 ${escapeHtml(api.name)} 的 ${label} 示例">复制代码</button>
+    </div>
+    <pre><code class="language-${language}">${escapeHtml(api.code)}</code></pre>`;
+
+  return api.theory ? `<details class="api-example">
+    <summary>代码示例 <span class="badge">${label}</span></summary>
+    ${code}
+  </details>` : code;
+}
+
 function renderApi(api) {
   return `
     <details class="api-card" id="api-${escapeHtml(api.id)}" data-api-id="${escapeHtml(api.id)}">
@@ -41,17 +74,13 @@ function renderApi(api) {
         <p class="api-brief">${escapeHtml(api.brief)}</p>
       </summary>
       <div class="api-body">
-        <div class="signature"><code>${escapeHtml(api.signature)}</code></div>
+        ${renderTheory(api)}
         <dl class="api-facts">
           <div class="fact"><dt>${getApiDomain(api) === 'graphics' ? '工具或主题' : '头文件'}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
           <div class="fact"><dt>返回什么</dt><dd>${escapeHtml(api.returns)}</dd></div>
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
         </dl>
-        <div class="code-heading">
-          <span>${escapeHtml(api.codeLabel ?? '示例')}</span>
-          <button class="copy-button" type="button" data-copy="${escapeHtml(api.id)}" aria-label="复制 ${escapeHtml(api.name)} 的示例代码">复制代码</button>
-        </div>
-        <pre><code>${escapeHtml(api.code)}</code></pre>
+        ${renderCodeExample(api)}
       </div>
     </details>`;
 }
