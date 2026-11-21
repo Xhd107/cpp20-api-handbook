@@ -2,11 +2,13 @@
 
 **在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
-面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **161 个主题、21 个用途分类**，其中标准 C++ 84 条，Unreal C++ 31 条，图形学 46 条。Vulkan 与 HLSL 已建立独立入口，正文待补充。
+面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **182 个主题、26 个用途分类**，其中标准 C++ 84 条，Unreal C++ 31 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制；C++20 新增筛选仅用于标准 C++。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
 图形学模块从实现时常遇到的问题出发，整理区间映射、浮点误差、向量与矩阵、坐标空间转换、投影与深度、射线求交、着色与采样。打开条目可先读 LaTeX 公式和推导，再按需展开 C++ 或 HLSL 示例。
+
+HLSL 模块先简写与 C++ 同形的语法，再查 HLSL 特有的向量和矩阵、阶段语义、资源绑定与布局、纹理采样和计算着色器。每条附官方参考。
 
 ## 本地运行
 
@@ -39,6 +41,7 @@ npm run build
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样
 - `src/data-graphics-math.js`：标量插值、数值误差、常用几何查询、逆变换、深度重建与切线空间
 - `src/data-graphics-theory.js`：按条目 ID 保存数学解释和 LaTeX 公式，由 KaTeX 渲染
+- `src/data-hlsl.js`：HLSL 基础、相关 Shader Model 或语言版本、示例与官方文档
 - `src/main.js`：模块切换、渲染、搜索、筛选和交互
 - `src/style.css`：页面样式与移动端适配
 
@@ -65,3 +68,12 @@ npm run build
 - [Epic：委托与 Lambda](https://dev.epicgames.com/documentation/unreal-engine/delegates-and-lambda-functions-in-unreal-engine?lang=zh-CN)
 
 Unreal 条目以 UE5 常见写法为基准。项目实际可用的 C++ 标准、API 和构建配置仍需结合所用引擎版本确认。
+
+## HLSL 参考资料
+
+- [Microsoft Learn：HLSL 语言参考](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-reference)，查语义、内置函数、纹理对象和 Shader Model。
+- [DirectX Shader Compiler：语言版本](https://github.com/microsoft/DirectXShaderCompiler/wiki/Language-Versions)与 [HLSL 2021](https://github.com/microsoft/DirectXShaderCompiler/wiki/HLSL-2021)，查 DXC 的语法版本和兼容性。
+- [Microsoft：HLSL 语言规范草案](https://microsoft.github.io/hlsl-specs/specs/index.html)，用来核对语言规则的细节，实际功能支持仍要看编译器和编译目标。
+- [Microsoft Learn：D3D12 资源绑定](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl)与 [DXC：SPIR-V 后端](https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#hlsl-register-and-vulkan-binding)，分别查 Direct3D 和 Vulkan 下的绑定约定。
+
+条目以 DXC 和 HLSL 2021 为基准。语言选项 `-HV` 与目标选项 `-T` 分开指定。示例是独立着色器或辅助函数，纹理、采样器和缓冲区需要宿主程序绑定。

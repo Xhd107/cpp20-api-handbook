@@ -63,6 +63,11 @@ function renderCodeExample(api) {
 }
 
 function renderApi(api) {
+  const domain = getApiDomain(api);
+  const topicLabel = domain === 'hlsl' ? '相关语法' : domain === 'graphics' ? '工具或主题' : '头文件';
+  const references = api.references?.map(({ label, url }) =>
+    `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
+  ).join(' · ');
   return `
     <details class="api-card" id="api-${escapeHtml(api.id)}" data-api-id="${escapeHtml(api.id)}">
       <summary>
@@ -76,9 +81,10 @@ function renderApi(api) {
       <div class="api-body">
         ${renderTheory(api)}
         <dl class="api-facts">
-          <div class="fact"><dt>${getApiDomain(api) === 'graphics' ? '工具或主题' : '头文件'}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
-          <div class="fact"><dt>返回什么</dt><dd>${escapeHtml(api.returns)}</dd></div>
+          <div class="fact"><dt>${topicLabel}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
+          <div class="fact"><dt>${domain === 'hlsl' ? '效果' : '返回什么'}</dt><dd>${escapeHtml(api.returns)}</dd></div>
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
+          ${references ? `<div class="fact"><dt>官方文档</dt><dd>${references}</dd></div>` : ''}
         </dl>
         ${renderCodeExample(api)}
       </div>
