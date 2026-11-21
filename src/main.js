@@ -69,6 +69,7 @@ function renderHandbook() {
   }).join('');
 
   byId('totalCount').textContent = apis.length;
+  byId('categoryCount').textContent = categories.length;
 }
 
 let activeFilter = 'all';
@@ -76,9 +77,11 @@ let query = '';
 let toastTimer;
 
 function matches(api) {
+  const isUnreal = categories.find((category) => category.id === api.category)?.domain === 'unreal';
   const filterMatch = activeFilter === 'all'
     || (activeFilter === 'A' && api.level === 'A')
-    || (activeFilter === '20' && api.since.includes('C++20'));
+    || (activeFilter === '20' && api.since.includes('C++20'))
+    || (activeFilter === 'unreal' && isUnreal);
   if (!filterMatch) return false;
   const tokens = query.toLocaleLowerCase().split(/\s+/).filter(Boolean);
   const haystack = searchText.get(api.id);

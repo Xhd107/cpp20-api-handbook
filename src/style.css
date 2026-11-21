@@ -192,6 +192,7 @@ h3 { font-size: 18px; }
 }
 .reading-note h2 { margin-bottom: 8px; font-size: 16px; }
 .reading-note p { margin: 0; color: var(--muted); }
+.reading-note p + p { margin-top: 10px; }
 .reading-note code { color: var(--text); }
 
 .tools {
@@ -371,6 +372,7 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
   .mobile-category select { min-height: 48px; max-width: 170px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); padding: 0 8px; }
   .search-box kbd { display: none; }
   .tools { padding: 14px; }
+  .filter-button, .result-actions button, .empty-state button, .copy-button { min-height: 44px; }
 }
 
 @media (max-width: 520px) {
