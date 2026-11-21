@@ -164,6 +164,45 @@ h3 { font-size: 18px; }
 .stats { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 28px; color: var(--muted); font-size: 14px; }
 .stats strong { margin-right: 4px; color: var(--text); font: 700 16px/1.4 "Cascadia Code", Consolas, monospace; }
 
+.module-switcher { margin-bottom: 36px; scroll-margin-top: 84px; }
+.module-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.module-tab {
+  display: grid;
+  gap: 3px;
+  min-height: 68px;
+  align-content: center;
+  padding: 12px 16px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease-out, color 160ms ease-out;
+}
+.module-tab:last-child { border-right: 0; }
+.module-tab:hover { background: var(--line); color: var(--text); }
+.module-tab.active { background: var(--text); color: var(--panel); }
+.module-tab small { font-size: 12px; }
+.module-description { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+.filter-button:disabled,
+.filter-button:disabled:hover,
+.result-actions button:disabled,
+.result-actions button:disabled:hover {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--muted);
+}
+.search-box:has(input:disabled) { opacity: 0.55; }
+
 .quick-start { padding: 0 0 40px; }
 .quick-start h2 { margin-bottom: 16px; font-size: 18px; }
 .quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
@@ -381,6 +420,10 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
   .brand-mark { width: 38px; }
   h1 { font-size: 34px; }
   .stats { display: grid; gap: 6px; }
+  .module-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .module-tab { border-bottom: 1px solid var(--line); }
+  .module-tab:nth-child(2n) { border-right: 0; }
+  .module-tab:nth-last-child(-n + 2) { border-bottom: 0; }
   .quick-grid { grid-template-columns: 1fr 1fr; }
   .quick-grid a { min-height: 88px; padding: 12px; }
   .search-row { flex-direction: column; }

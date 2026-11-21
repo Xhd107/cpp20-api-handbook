@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="涵盖 C++20 标准库与 Unreal Engine C++ 的中文自查手册，支持全文搜索、分类筛选、示例和注意事项。">
+  <meta name="description" content="按标准 C++、Unreal C++、Vulkan 和 HLSL 分模块的中文自查手册，支持搜索、分类筛选、示例和注意事项。">
   <title>自查手册</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2323343f'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='monospace' font-size='24' fill='%23f4f8f8'%3E查%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./src/style.css">
@@ -14,14 +14,14 @@
     <a class="brand" href="#top" aria-label="返回手册顶部">
       <span class="brand-mark" aria-hidden="true">查</span>
       <span>自查手册</span>
-      <span class="version">C++20 · U++</span>
+      <span class="version">C++ · GPU</span>
     </a>
-    <div class="header-note">标准库 · Unreal C++ · 中文示例</div>
+    <div class="header-note">标准 C++ · Unreal C++ · Vulkan · HLSL</div>
   </header>
 
   <div class="page-shell" id="top">
     <aside class="sidebar" aria-label="手册分类">
-      <div class="sidebar-title">按用途查阅</div>
+      <div id="sidebarTitle" class="sidebar-title">标准 C++ · 按用途查阅</div>
       <nav id="categoryNav"></nav>
       <div class="sidebar-legend">
         <span><b>A</b> 优先掌握</span>
@@ -32,45 +32,50 @@
 
     <main id="handbook">
       <section class="intro" aria-labelledby="pageTitle">
-        <div class="intro-kicker">C++20 · UNREAL ENGINE C++</div>
+        <div class="intro-kicker">STANDARD C++ · UNREAL C++ · VULKAN · HLSL</div>
         <h1 id="pageTitle">查得到，看得懂，<br>能直接放进代码里。</h1>
-        <p class="intro-copy">从 C++20 标准库到 Unreal Engine C++（U++），按用途整理常用 API、反射宏、对象生命周期和 Gameplay 工具。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
+        <p class="intro-copy">按技术模块和用途整理常用 API、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
         <div class="stats" aria-label="手册概况">
           <span><strong id="totalCount">115</strong> 个常用主题</span>
           <span><strong id="categoryCount">14</strong> 个用途分类</span>
-          <span><strong>C++20 / UE5</strong> 当前内容范围</span>
+          <span><strong>4</strong> 个技术模块</span>
         </div>
       </section>
 
-      <section class="quick-start" aria-labelledby="quickTitle">
+      <section id="moduleSwitcher" class="module-switcher" aria-label="技术模块">
+        <nav id="moduleTabs" class="module-tabs" aria-label="切换技术模块"></nav>
+        <p id="moduleDescription" class="module-description"></p>
+      </section>
+
+      <section id="quickStart" class="quick-start" aria-labelledby="quickTitle">
         <h2 id="quickTitle">我想做什么？</h2>
         <div class="quick-grid">
-          <a href="#api-string-view"><span>拆分一行文本</span><code>string_view</code></a>
-          <a href="#api-from-chars"><span>严格解析数字</span><code>from_chars</code></a>
-          <a href="#api-vector"><span>保存动态顶点</span><code>vector</code></a>
-          <a href="#api-span"><span>传入只读数组</span><code>span</code></a>
-          <a href="#api-find-if"><span>查找非法索引</span><code>find_if</code></a>
-          <a href="#api-format"><span>格式化调试信息</span><code>format</code></a>
-          <a href="#api-filesystem-path"><span>处理模型路径</span><code>filesystem::path</code></a>
-          <a href="#api-unique-ptr"><span>管理独占资源</span><code>unique_ptr</code></a>
-          <a href="#api-ue-uproperty"><span>标记蓝图属性</span><code>UPROPERTY</code></a>
-          <a href="#api-ue-spawn-actor"><span>在世界里生成 Actor</span><code>SpawnActor</code></a>
-          <a href="#api-ue-tobject-ptr"><span>保存 UObject 引用</span><code>TObjectPtr</code></a>
-          <a href="#api-ue-dynamic-delegate"><span>广播 Gameplay 事件</span><code>动态委托</code></a>
+          <a data-module="cpp" href="#api-string-view"><span>拆分一行文本</span><code>string_view</code></a>
+          <a data-module="cpp" href="#api-from-chars"><span>严格解析数字</span><code>from_chars</code></a>
+          <a data-module="cpp" href="#api-vector"><span>保存动态顶点</span><code>vector</code></a>
+          <a data-module="cpp" href="#api-span"><span>传入只读数组</span><code>span</code></a>
+          <a data-module="cpp" href="#api-find-if"><span>查找非法索引</span><code>find_if</code></a>
+          <a data-module="cpp" href="#api-format"><span>格式化调试信息</span><code>format</code></a>
+          <a data-module="cpp" href="#api-filesystem-path"><span>处理模型路径</span><code>filesystem::path</code></a>
+          <a data-module="cpp" href="#api-unique-ptr"><span>管理独占资源</span><code>unique_ptr</code></a>
+          <a data-module="unreal" href="#api-ue-uproperty"><span>标记蓝图属性</span><code>UPROPERTY</code></a>
+          <a data-module="unreal" href="#api-ue-spawn-actor"><span>在世界里生成 Actor</span><code>SpawnActor</code></a>
+          <a data-module="unreal" href="#api-ue-tobject-ptr"><span>保存 UObject 引用</span><code>TObjectPtr</code></a>
+          <a data-module="unreal" href="#api-ue-dynamic-delegate"><span>广播 Gameplay 事件</span><code>动态委托</code></a>
         </div>
       </section>
 
       <section class="reading-note" aria-labelledby="noteTitle">
         <h2 id="noteTitle">先读这一条</h2>
-        <p>C++20 区域以标准库为版本边界，<code>std::expected</code>、<code>std::print</code> 等 C++23 工具不混入其中。Unreal 区域采用 <strong>UE5 常见写法</strong>；项目可用的 C++ 语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
-        <p>Unreal 内容综合 <a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> 与 <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman 的 Unreal C++ 指南</a>，示例以 UE5 Gameplay 代码为主。</p>
+        <p>标准 C++ 模块以 C++20 为版本边界，C++23 工具不混入其中。Unreal C++ 模块采用 <strong>UE5 常见写法</strong>，实际语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
+        <p>Vulkan 与 HLSL 已建立独立模块入口，当前标记为“待补充”。Unreal 内容综合 <a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> 与 <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman 的 Unreal C++ 指南</a>。</p>
       </section>
 
       <section class="tools" aria-label="搜索和筛选手册">
         <div class="search-row">
           <label class="search-box" for="searchInput">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
-            <input id="searchInput" type="search" autocomplete="off" placeholder="搜索 C++、UPROPERTY、HLSL、用途或示例……" aria-describedby="searchHelp">
+            <input id="searchInput" type="search" autocomplete="off" placeholder="在标准 C++ 中搜索……" aria-describedby="searchHelp">
             <kbd>Ctrl K</kbd>
           </label>
           <label class="mobile-category">分类
@@ -82,7 +87,6 @@
             <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
             <button class="filter-button" type="button" data-filter="A" aria-pressed="false">优先掌握</button>
             <button class="filter-button" type="button" data-filter="20" aria-pressed="false">C++20 新增</button>
-            <button class="filter-button" type="button" data-filter="unreal" aria-pressed="false">Unreal C++</button>
           </div>
           <div class="result-actions">
             <span id="resultCount" role="status" aria-live="polite"></span>
@@ -90,19 +94,19 @@
             <button id="collapseButton" type="button">全部收起</button>
           </div>
         </div>
-        <p id="searchHelp" class="search-help">支持多个关键词，例如 <code>map 查找</code> 或 <code>UPROPERTY 蓝图</code>；按 <kbd>/</kbd> 也可聚焦搜索。</p>
+        <p id="searchHelp" class="search-help">搜索范围：标准 C++。支持多个关键词，按 / 或 Ctrl K 聚焦搜索。</p>
       </section>
 
       <div id="emptyState" class="empty-state" hidden>
-        <h2>没有找到匹配条目</h2>
-        <p>试试更短的关键词，或切换到“全部”。也可以搜索“解析”“SpawnActor”“垃圾回收”等用途。</p>
+        <h2 id="emptyTitle">没有找到匹配条目</h2>
+        <p id="emptyDescription">试试更短的关键词，或清除搜索和筛选后查看当前模块的全部条目。</p>
         <button id="resetButton" type="button">清除搜索和筛选</button>
       </div>
 
       <div id="apiContent"></div>
 
       <footer>
-        <p>内容按 C++20 标准库和 UE5 常用 Gameplay 功能整理。示例以说明语义为主，实际项目还需补齐类型定义、模块依赖、错误处理和版本适配。</p>
+        <p>当前内容按 C++20 标准库和 UE5 常用 Gameplay 功能整理。示例以说明语义为主，实际项目还需补齐类型定义、模块依赖、错误处理和版本适配。</p>
         <p>C++ 查证：<a href="https://en.cppreference.com/w/cpp/standard_library" target="_blank" rel="noreferrer">cppreference 标准库索引</a> · <a href="https://en.cppreference.com/w/cpp/ranges" target="_blank" rel="noreferrer">Ranges 参考</a></p>
         <p>Unreal 查证：<a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> · <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman Unreal C++ Guide</a></p>
       </footer>
