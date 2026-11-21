@@ -1,6 +1,6 @@
 # 自查手册
 
-**在线阅读：[https://xhd107.github.io/cpp20-api-handbook/](https://xhd107.github.io/cpp20-api-handbook/)**
+**在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
 面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **145 个主题、20 个用途分类**：标准 C++ 84 条，Unreal C++ 31 条，图形学 30 条；Vulkan 与 HLSL 已建立独立入口，正文待补充。
 
@@ -27,7 +27,7 @@ npm run build
 
 仓库通过 `.github/workflows/deploy.yml` 自动构建并部署到 GitHub Pages。推送到 `main` 分支后，工作流会自动更新网页，也可以在 Actions 页面手动触发。
 
-网页地址：`https://xhd107.github.io/cpp20-api-handbook/`
+网页地址：`https://xhd107.github.io/dev-handbook/`
 
 ## 内容维护
 
