@@ -43,7 +43,7 @@ function renderApi(api) {
       <div class="api-body">
         <div class="signature"><code>${escapeHtml(api.signature)}</code></div>
         <dl class="api-facts">
-          <div class="fact"><dt>头文件</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
+          <div class="fact"><dt>${getApiDomain(api) === 'graphics' ? '工具或主题' : '头文件'}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
           <div class="fact"><dt>返回什么</dt><dd>${escapeHtml(api.returns)}</dd></div>
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
         </dl>
@@ -213,19 +213,26 @@ function showToast(message) {
 
 async function copyCode(apiId) {
   const code = document.querySelector(`#api-${CSS.escape(apiId)} pre code`).textContent;
+  let copied = false;
   try {
     await navigator.clipboard.writeText(code);
+    copied = true;
   } catch {
     const textarea = document.createElement('textarea');
     textarea.value = code;
     textarea.style.position = 'fixed';
     textarea.style.opacity = '0';
     document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
+    try {
+      textarea.select();
+      copied = document.execCommand('copy');
+    } catch {
+      copied = false;
+    } finally {
+      textarea.remove();
+    }
   }
-  showToast('示例代码已复制');
+  showToast(copied ? '示例代码已复制' : '复制失败，请手动选择并复制示例代码');
 }
 
 function openApiTarget(id) {

@@ -36,8 +36,8 @@
         <h1 id="pageTitle">查得到，看得懂，<br>能直接放进代码里。</h1>
         <p class="intro-copy">按技术模块和用途整理常用 API、图形学数学、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
         <div class="stats" aria-label="手册概况">
-          <span><strong id="totalCount">145</strong> 个常用主题</span>
-          <span><strong id="categoryCount">20</strong> 个用途分类</span>
+          <span><strong id="totalCount">161</strong> 个常用主题</span>
+          <span><strong id="categoryCount">21</strong> 个用途分类</span>
           <span><strong id="moduleCount">5</strong> 个技术模块</span>
         </div>
       </section>
@@ -70,13 +70,17 @@
           <a data-module="graphics" href="#api-gfx-moller-trumbore"><span>射线拾取三角形</span><code>Möller–Trumbore</code></a>
           <a data-module="graphics" href="#api-gfx-ray-aabb"><span>测试 BVH 包围盒</span><code>ray / AABB</code></a>
           <a data-module="graphics" href="#api-gfx-cosine-hemisphere"><span>生成路径追踪方向</span><code>cosine hemisphere</code></a>
+          <a data-module="graphics" href="#api-gfx-lerp-remap"><span>把数值映射到另一个区间</span><code>inverse lerp / remap</code></a>
+          <a data-module="graphics" href="#api-gfx-affine-inverse"><span>把世界坐标转回本地坐标</span><code>affine inverse</code></a>
+          <a data-module="graphics" href="#api-gfx-unproject-screen"><span>从鼠标位置生成拾取射线</span><code>unproject</code></a>
+          <a data-module="graphics" href="#api-gfx-depth-linearization"><span>从深度缓冲还原距离</span><code>linear depth</code></a>
         </div>
       </section>
 
       <section class="reading-note" aria-labelledby="noteTitle">
         <h2 id="noteTitle">先读这一条</h2>
         <p>标准 C++ 模块以 C++20 为版本边界，C++23 工具不混入其中。Unreal C++ 模块采用 <strong>UE5 常见写法</strong>，实际语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
-        <p>图形学模块默认采用<strong>列向量、右乘矩阵、先右后左</strong>的记法；涉及相机或投影时会单独说明手性、观察方向和深度范围。代码是省略具体向量库的计算示例，接入引擎前先核对坐标约定。</p>
+        <p>图形学模块默认使用<strong>列向量</strong>，矩阵写在向量左侧，例如 <code>p′ = M p</code>。多个变换从右往左应用。涉及相机或投影时会标注手性、观察方向和深度范围。计算示例省略了具体向量库，接入引擎前先核对坐标约定。</p>
         <p>Vulkan 与 HLSL 已建立独立模块入口，当前标记为“待补充”。Unreal 内容综合 <a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> 与 <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman 的 Unreal C++ 指南</a>。</p>
       </section>
 

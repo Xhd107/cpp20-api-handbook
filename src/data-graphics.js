@@ -273,7 +273,7 @@ float alpha=1-beta-gamma;`,
   },
   {
     id: 'gfx-perspective-correct', category: 'gfx-projection', name: '透视校正插值', header: '光栅化 · 顶点属性', since: 'GAMES101 · 作业 2/3', level: 'A', codeLabel: '计算示例',
-    brief: '屏幕空间重心权重不能直接插值世界空间 UV 或法线，需要以裁剪 w 的倒数修正。',
+    brief: '要用屏幕空间重心权重插值纹理坐标、法线等顶点属性，需要以裁剪 w 的倒数修正。',
     signature: `λi 为屏幕空间重心权重，wi 为各顶点裁剪 w：
 a = [Σ λi(ai/wi)] / [Σ λi(1/wi)]
 同时可恢复 1/w = Σ λi(1/wi)`,

@@ -2,11 +2,11 @@
 
 **在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
-面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **145 个主题、20 个用途分类**：标准 C++ 84 条，Unreal C++ 31 条，图形学 30 条；Vulkan 与 HLSL 已建立独立入口，正文待补充。
+面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **161 个主题、21 个用途分类**，其中标准 C++ 84 条，Unreal C++ 31 条，图形学 46 条。Vulkan 与 HLSL 已建立独立入口，正文待补充。
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制；C++20 新增筛选仅用于标准 C++。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
-图形学模块优先整理常用数学和基础算法：向量与矩阵、投影与插值、射线求交、着色与曲线、采样与蒙特卡洛。每条给出公式、坐标约定、计算示例和易错点，便于实现时核对，不替代完整的图形学课程。
+图形学模块从实现时常遇到的问题出发，整理区间映射、浮点误差、向量与矩阵、坐标空间转换、投影与深度、射线求交、着色与采样。每条给出公式、计算示例和易错点，涉及坐标约定时一并注明。
 
 ## 本地运行
 
@@ -37,6 +37,7 @@ npm run build
 - `src/data-tail.js`：C++ 文件系统、智能指针、数学、并发和类型诊断
 - `src/data-unreal.js`：Unreal 反射宏、对象生命周期、引用类型和 Gameplay 工具
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样
+- `src/data-graphics-math.js`：标量插值、数值误差、常用几何查询、逆变换、深度重建与切线空间
 - `src/main.js`：模块切换、渲染、搜索、筛选和交互
 - `src/style.css`：页面样式与移动端适配
 
@@ -47,8 +48,11 @@ npm run build
 - [Fundamentals of Computer Graphics 5th 中文笔记](https://github.com/Xhd107/Fundamentals-Of-Computer-Graphics-5th-CN)
 - [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html)
 - [Real-Time Rendering 4th 阅读笔记](https://www.wolai.com/fkGSwxLu2pjWD7kiBY1V7W)
+- [PBRT 4e：应用变换](https://www.pbr-book.org/4ed/Geometry_and_Transformations/Applying_Transformations)、[形状采样接口](https://www.pbr-book.org/4ed/Shapes/Basic_Shape_Interface)
+- [Khronos：Vulkan 裁剪与视口变换](https://docs.vulkan.org/spec/latest/chapters/vertexpostproc.html)、[glTF 2.0 规范](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)
+- [GLM：投影与反投影](https://glm.g-truc.net/0.9.9/api/a00666.html)、[NVIDIA：透视深度精度与反向 Z](https://developer.nvidia.com/blog/visualizing-depth-precision/)
 
-图形学条目默认使用**列向量、矩阵右乘、先右后左**的记法。相机、投影、着色器和引擎接入仍需分别核对手性、观察方向、深度范围及矩阵存储布局；具体公式旁会标注关键约定。
+图形学条目默认使用**列向量**，矩阵写在向量左侧，例如 `p′ = M p`。多个变换从右往左应用，例如 `P V M p` 依次应用模型、视图和投影变换。接入相机、着色器或引擎时，需分别核对手性、观察方向、深度范围和矩阵存储布局。
 
 ## Unreal 参考资料
 
