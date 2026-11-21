@@ -1,5 +1,7 @@
 # C++20 API 速查手册
 
+**在线阅读：[https://xhd107.github.io/cpp20-api-handbook/](https://xhd107.github.io/cpp20-api-handbook/)**
+
 以 C++20 为基准的常用标准库中文参考手册，包含 84 个主题、11 个用途分类。支持全文搜索、学习优先级筛选、C++20 新增筛选、分类导航、条目折叠和示例代码复制。
 
 ## 本地运行
