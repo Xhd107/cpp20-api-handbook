@@ -2,7 +2,7 @@
 
 **在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
-面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **293 个主题、33 个用途分类**，其中标准 C++ 195 条，Unreal C++ 31 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
+面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **319 个主题、34 个用途分类**，其中标准 C++ 221 条，Unreal C++ 31 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制。标准 C++ 可分别筛选 C++20、C++23、C++26 新增内容。版本标签说明主题特性的引入版本，示例默认使用现代 C++ 写法。C++23、C++26 条目提供特性检测条件或试编译说明，并链接到工作草案。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
@@ -42,6 +42,7 @@ npm run build
 - `src/data-smart-pointers.js`：所有权转移、别名构造、控制块、弱观察者和线程间发布
 - `src/data-preprocessor.js`：宏替换、条件编译、跨文件配置、断言和嵌入资源
 - `src/data-lambdas.js`：局部 Lambda、捕获、递归、事件回调与协程示例
+- `src/data-callables.js`：函数对象与成员指针、回调适配、参数绑定、算法投影及事件和任务分派
 - `src/data-cpp23.js`、`src/data-cpp26.js`：按标准版本维护的语言与库特性；每条提供 `featureTest` 条件
 - `src/data-unreal.js`：Unreal 反射宏、对象生命周期、引用类型和 Gameplay 工具
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样

@@ -9,6 +9,7 @@ export const categories = [
   { id: 'memory', title: '内存与资源所有权', description: '用智能指针表达独占、共享和弱引用关系。' },
   { id: 'preprocessor', title: '预处理与宏', description: '配置条件编译，追踪记号展开，并检查日志、断言和公共头文件中的宏。' },
   { id: 'lambda', title: 'Lambda 与回调', description: '从局部函数、捕获和排序谓词，到移动任务、弱引用回调与协程的生命周期。' },
+  { id: 'callables', title: '函数对象与回调适配', description: '把函数、成员和有状态对象传给算法、事件系统或任务队列；按场景查参数绑定、字段投影与订阅生命周期。' },
   { id: 'numeric', title: '时间、随机数、数学与位操作', description: '计时、随机采样、常用数学函数和 C++20 位工具。' },
   { id: 'concurrency', title: '并发基础', description: '线程、互斥、原子变量、条件变量和异步任务。' },
   { id: 'types', title: '类型、模板与诊断', description: '固定宽度整数、类型信息、Concepts、异常和错误码。' }

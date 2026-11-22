@@ -8,6 +8,7 @@ import { cpp26Apis } from './data-cpp26.js';
 import { smartPointerApis } from './data-smart-pointers.js';
 import { preprocessorApis } from './data-preprocessor.js';
 import { lambdaApis } from './data-lambdas.js';
+import { callableApis } from './data-callables.js';
 import { unrealCategories, unrealApis } from './data-unreal.js';
 import { graphicsCategories, graphicsApis } from './data-graphics.js';
 import { graphicsMathCategory, graphicsMathApis } from './data-graphics-math.js';
@@ -40,6 +41,7 @@ export const apis = [
   ...smartPointerApis,
   ...preprocessorApis,
   ...lambdaApis,
+  ...callableApis,
   ...unrealApis,
   ...[...graphicsApis, ...graphicsMathApis].map((api) => ({
     ...api,
