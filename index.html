@@ -36,7 +36,7 @@
         <h1 id="pageTitle">查得到，看得懂，<br>能直接放进代码里。</h1>
         <p class="intro-copy">按技术模块和用途整理常用 API、图形学数学、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
         <div class="stats" aria-label="手册概况">
-          <span><strong id="totalCount">202</strong> 个常用主题</span>
+          <span><strong id="totalCount">250</strong> 个常用主题</span>
           <span><strong id="categoryCount">31</strong> 个用途分类</span>
           <span><strong id="moduleCount">5</strong> 个技术模块</span>
         </div>
@@ -93,7 +93,7 @@
 
       <section class="reading-note" aria-labelledby="noteTitle">
         <h2 id="noteTitle">先读这一条</h2>
-        <p>标准 C++ 模块以 C++20 为版本边界，C++23 工具不混入其中。Unreal C++ 模块采用 <strong>UE5 常见写法</strong>，实际语言标准取决于引擎版本与工具链，Unreal 反射宏也不等同于标准 C++。</p>
+        <p>标准 C++ 条目标有引入版本。使用 C++23 或 C++26 示例前，开启对应语言模式；库特性可包含 <code>&lt;version&gt;</code> 后用 <code>#if</code> 检查条目中的宏条件。语言特性宏由编译器提供。Unreal 示例采用 <strong>UE5 常见写法</strong>，可用特性取决于项目工具链。</p>
         <p>图形学词条先展示公式和推导，可按需展开 C++ 或 HLSL 示例。C++ 示例中的 <code>Vec3</code>、<code>Mat4</code> 等类型由项目的数学库提供。公式默认使用<strong>列向量</strong>，例如 <code>p′ = M p</code>，多个变换从右往左应用。</p>
         <p>HLSL 模块以 <strong>DXC 与 HLSL 2021</strong> 为基准，条目会注明与 C++ 相同的写法，并链接到官方文档。绑定示例以 Direct3D 为准，Vulkan 的 SPIR-V 编译和绑定规则需单独核对。</p>
       </section>
@@ -114,6 +114,8 @@
             <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
             <button class="filter-button" type="button" data-filter="A" aria-pressed="false">优先掌握</button>
             <button class="filter-button" type="button" data-filter="20" aria-pressed="false">C++20 新增</button>
+            <button class="filter-button" type="button" data-filter="23" aria-pressed="false">C++23 新增</button>
+            <button class="filter-button" type="button" data-filter="26" aria-pressed="false">C++26 新增</button>
           </div>
           <div class="result-actions">
             <span id="resultCount" role="status" aria-live="polite"></span>
@@ -133,7 +135,7 @@
       <div id="apiContent"></div>
 
       <footer>
-        <p>当前内容按 C++20 标准库、UE5 常用 Gameplay 功能和图形学数学基础整理。示例以说明语义为主，实际项目还需补齐类型定义、模块依赖、错误处理、坐标约定和版本适配。</p>
+        <p>接入实际项目时，请核对示例所需的标准版本、模块依赖、错误处理和坐标约定。</p>
         <p>C++ 查证：<a href="https://en.cppreference.com/w/cpp/standard_library" target="_blank" rel="noreferrer">cppreference 标准库索引</a> · <a href="https://en.cppreference.com/w/cpp/ranges" target="_blank" rel="noreferrer">Ranges 参考</a></p>
         <p>Unreal 查证：<a href="https://dev.epicgames.com/documentation/unreal-engine/programming-with-cplusplus-in-unreal-engine?lang=zh-CN" target="_blank" rel="noreferrer">Epic 官方编程指南</a> · <a href="https://tomlooman.com/unreal-engine-cpp-guide/" target="_blank" rel="noreferrer">Tom Looman Unreal C++ Guide</a></p>
         <p>图形学查证：<a href="https://github.com/Xhd107/Fundamentals-Of-Computer-Graphics-5th-CN" target="_blank" rel="noreferrer">虎书第五版中文笔记</a> · <a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html" target="_blank" rel="noreferrer">GAMES101 官方课程</a> · <a href="https://www.wolai.com/fkGSwxLu2pjWD7kiBY1V7W" target="_blank" rel="noreferrer">RTR4 阅读笔记</a></p>

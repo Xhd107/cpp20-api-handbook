@@ -10,12 +10,13 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => (
 const categoryById = new Map(categories.map((category) => [category.id, category]));
 const getApiDomain = (api) => categoryById.get(api.category)?.domain ?? 'cpp';
 const getCategoryDomain = (category) => category.domain ?? 'cpp';
+const cppVersionFilters = ['20', '23', '26'];
 const currentModule = () => modules.find((module) => module.id === activeModule);
 const currentModuleApis = () => apis.filter((api) => getApiDomain(api) === activeModule);
 
 const searchText = new Map(apis.map((api) => [
   api.id,
-  [api.name, api.header, api.since, api.level, api.brief, api.signature,
+  [api.name, api.header, api.since, api.featureTest, api.level, api.brief, api.signature,
     api.returns, api.pitfall, api.code, api.keywords, api.theory?.flat().join(' '),
     categoryById.get(api.category)?.title ?? '',
     modules.find((module) => module.id === getApiDomain(api))?.title ?? '']
@@ -74,7 +75,7 @@ function renderApi(api) {
         <span class="api-title"><span class="api-name">${escapeHtml(api.name)}</span></span>
         <span class="badges">
           ${badge(api.level, `level-${api.level}`)}
-          ${badge(api.since, api.since.includes('C++20') ? 'new' : '')}
+          ${badge(api.since, cppVersionFilters.some(version => api.since.includes('C++' + version)) ? 'new' : '')}
         </span>
         <p class="api-brief">${escapeHtml(api.brief)}</p>
       </summary>
@@ -82,6 +83,7 @@ function renderApi(api) {
         ${renderTheory(api)}
         <dl class="api-facts">
           <div class="fact"><dt>${topicLabel}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
+          ${api.featureTest ? `<div class="fact"><dt>特性检测</dt><dd><code>${escapeHtml(api.featureTest)}</code></dd></div>` : ''}
           <div class="fact"><dt>${domain === 'hlsl' ? '效果' : '返回什么'}</dt><dd>${escapeHtml(api.returns)}</dd></div>
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
           ${references ? `<div class="fact"><dt>官方文档</dt><dd>${references}</dd></div>` : ''}
@@ -144,7 +146,7 @@ function matches(api) {
   if (getApiDomain(api) !== activeModule) return false;
   const filterMatch = activeFilter === 'all'
     || (activeFilter === 'A' && api.level === 'A')
-    || (activeFilter === '20' && activeModule === 'cpp' && api.since.includes('C++20'));
+    || (activeModule === 'cpp' && cppVersionFilters.includes(activeFilter) && api.since.includes('C++' + activeFilter));
   if (!filterMatch) return false;
   const tokens = query.toLocaleLowerCase().split(/\s+/).filter(Boolean);
   const haystack = searchText.get(api.id);
@@ -209,7 +211,7 @@ function applyFilters() {
 
   document.querySelectorAll('[data-filter]').forEach((button) => {
     button.disabled = !hasModuleEntries
-      || (button.dataset.filter === '20' && activeModule !== 'cpp');
+      || (cppVersionFilters.includes(button.dataset.filter) && activeModule !== 'cpp');
   });
 }
 

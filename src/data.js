@@ -2,6 +2,9 @@ import { categories as standardCategories, coreApis } from './data-core.js';
 import { algorithmApis } from './data-algorithms.js';
 import { tailApis } from './data-tail.js';
 import { engineCppCategories, engineCppApis } from './data-cpp-engine.js';
+import { practiceApis } from './data-cpp-practice.js';
+import { cpp23Apis } from './data-cpp23.js';
+import { cpp26Apis } from './data-cpp26.js';
 import { unrealCategories, unrealApis } from './data-unreal.js';
 import { graphicsCategories, graphicsApis } from './data-graphics.js';
 import { graphicsMathCategory, graphicsMathApis } from './data-graphics-math.js';
@@ -9,7 +12,7 @@ import { graphicsTheory } from './data-graphics-theory.js';
 import { hlslCategories, hlslApis } from './data-hlsl.js';
 
 export const modules = [
-  { id: 'cpp', title: '标准 C++', description: '以 C++20 为基准的标准库、算法、Ranges、文件系统、并发与类型工具。' },
+  { id: 'cpp', title: '标准 C++', description: '按用途查标准库与语言特性，涵盖图形和引擎常用工具，可单独筛选 C++20、C++23、C++26 新增内容。' },
   { id: 'unreal', title: 'Unreal C++', description: 'UE5 常见反射宏、对象生命周期、资源引用与 Gameplay 工具。' },
   { id: 'graphics', title: '图形学', description: '按问题查公式和推导，覆盖插值、向量、坐标变换、投影与深度、求交、着色与采样。' },
   { id: 'vulkan', title: 'Vulkan', description: 'Vulkan 独立模块，用于整理实例、设备、交换链、管线、同步与资源管理。', emptyMessage: 'Vulkan 模块已经建立，后续可加入实例与设备、交换链、渲染通道、管线、描述符和同步等内容。' },
@@ -28,6 +31,9 @@ export const apis = [
   ...algorithmApis,
   ...tailApis,
   ...engineCppApis,
+  ...practiceApis,
+  ...cpp23Apis,
+  ...cpp26Apis,
   ...unrealApis,
   ...[...graphicsApis, ...graphicsMathApis].map((api) => ({
     ...api,

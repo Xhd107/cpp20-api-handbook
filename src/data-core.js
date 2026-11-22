@@ -4,7 +4,7 @@ export const categories = [
   { id: 'associative', title: '关联容器', description: '按键保存和查找数据，处理去重、映射与索引表。' },
   { id: 'utility', title: '值、对象与通用工具', description: '表达可选值、多种类型、对象组合和移动语义。' },
   { id: 'algorithm', title: '常用算法', description: '排序、查找、统计、转换、删除与数值累计。' },
-  { id: 'ranges', title: 'C++20 Ranges 与视图', description: '用管道惰性组合数据处理步骤，不额外创建中间容器。' },
+  { id: 'ranges', title: 'Ranges 与视图', description: '用惰性视图遍历、筛选、分组或拼接范围，按需收集到拥有存储的容器。' },
   { id: 'io', title: '文件系统与输入输出', description: '路径、目录、文件流、控制台与错误处理。' },
   { id: 'memory', title: '内存与资源所有权', description: '用智能指针表达独占、共享和弱引用关系。' },
   { id: 'numeric', title: '时间、随机数、数学与位操作', description: '计时、随机采样、常用数学函数和 C++20 位工具。' },
