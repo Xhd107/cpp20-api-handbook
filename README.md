@@ -2,7 +2,7 @@
 
 **在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
-面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **182 个主题、26 个用途分类**，其中标准 C++ 84 条，Unreal C++ 31 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
+面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **202 个主题、31 个用途分类**，其中标准 C++ 104 条，Unreal C++ 31 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制；C++20 新增筛选仅用于标准 C++。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
@@ -37,6 +37,7 @@ npm run build
 - `src/data-core.js`：C++ 字符串、容器、关联容器和通用工具
 - `src/data-algorithms.js`：C++ 算法与 Ranges
 - `src/data-tail.js`：C++ 文件系统、智能指针、数学、并发和类型诊断
+- `src/data-cpp-engine.js`：标准 C++ 在顶点布局、帧内分配、场景划分、纹理数值和后台任务同步中的用法
 - `src/data-unreal.js`：Unreal 反射宏、对象生命周期、引用类型和 Gameplay 工具
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样
 - `src/data-graphics-math.js`：标量插值、数值误差、常用几何查询、逆变换、深度重建与切线空间

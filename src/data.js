@@ -1,6 +1,7 @@
 import { categories as standardCategories, coreApis } from './data-core.js';
 import { algorithmApis } from './data-algorithms.js';
 import { tailApis } from './data-tail.js';
+import { engineCppCategories, engineCppApis } from './data-cpp-engine.js';
 import { unrealCategories, unrealApis } from './data-unreal.js';
 import { graphicsCategories, graphicsApis } from './data-graphics.js';
 import { graphicsMathCategory, graphicsMathApis } from './data-graphics-math.js';
@@ -16,7 +17,7 @@ export const modules = [
 ];
 
 export const categories = [
-  ...standardCategories.map((category) => ({ ...category, domain: 'cpp' })),
+  ...[...standardCategories, ...engineCppCategories].map((category) => ({ ...category, domain: 'cpp' })),
   ...unrealCategories,
   graphicsMathCategory,
   ...graphicsCategories,
@@ -26,6 +27,7 @@ export const apis = [
   ...coreApis,
   ...algorithmApis,
   ...tailApis,
+  ...engineCppApis,
   ...unrealApis,
   ...[...graphicsApis, ...graphicsMathApis].map((api) => ({
     ...api,
