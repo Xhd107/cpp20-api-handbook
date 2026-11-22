@@ -44,7 +44,7 @@ function renderQuickStart() {
     <details class="quick-group"${index === 0 ? ' open' : ''}>
       <summary>${escapeHtml(title)} <small>${tasks.length} 项</small></summary>
       <div class="quick-grid">${tasks.map(([id, task]) => `
-        <a href="#api-${escapeHtml(id)}"><span>${escapeHtml(task)}</span><code>${escapeHtml(apiById.get(id).name)}</code></a>`
+        <a href="#api-${escapeHtml(id)}"><span>${escapeHtml(task)}</span><code>${escapeHtml(apiById.get(id).quickLabel ?? apiById.get(id).name)}</code></a>`
       ).join('')}</div>
     </details>`).join('');
 }
@@ -101,7 +101,7 @@ function renderApi(api) {
         <dl class="api-facts">
           <div class="fact"><dt>${topicLabel}</dt><dd><code>${escapeHtml(api.header)}</code></dd></div>
           ${api.featureTest ? `<div class="fact"><dt>特性检测</dt><dd><code>${escapeHtml(api.featureTest)}</code></dd></div>` : ''}
-          <div class="fact"><dt>${domain === 'hlsl' ? '效果' : '返回什么'}</dt><dd>${escapeHtml(api.returns)}</dd></div>
+          <div class="fact"><dt>${escapeHtml(api.resultLabel ?? (domain === 'hlsl' ? '效果' : '返回什么'))}</dt><dd>${escapeHtml(api.returns)}</dd></div>
           <div class="fact warning"><dt>注意</dt><dd>${escapeHtml(api.pitfall)}</dd></div>
           ${references ? `<div class="fact"><dt>官方文档</dt><dd>${references}</dd></div>` : ''}
         </dl>

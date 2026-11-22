@@ -1,3 +1,5 @@
+import { gameplayCategories, gameplayApis } from './data-unreal-gameplay.js';
+
 export const quickGroups = {
   cpp: [
     { title: '资产路径、导入与热重载', tasks: [
@@ -168,6 +170,10 @@ export const quickGroups = {
     ] }
   ],
   unreal: [
+    ...gameplayCategories.map(({ id, title }) => ({
+      title,
+      tasks: gameplayApis.filter(api => api.category === id).map(api => [api.id, api.name])
+    })),
     { title: '工程模块、反射与蓝图', tasks: [
       ['ue-modules', '声明模块依赖'],
       ['ue-prefixes', '识别引擎类型前缀'],
