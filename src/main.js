@@ -1,6 +1,7 @@
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import { apis, categories, modules } from './data.js';
+import { quickGroups } from './quick-tasks.js';
 
 const byId = (id) => document.getElementById(id);
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
@@ -13,11 +14,15 @@ const getCategoryDomain = (category) => category.domain ?? 'cpp';
 const cppVersionFilters = ['20', '23', '26'];
 const currentModule = () => modules.find((module) => module.id === activeModule);
 const currentModuleApis = () => apis.filter((api) => getApiDomain(api) === activeModule);
+const apiById = new Map(apis.map(api => [api.id, api]));
+const taskLabels = new Map(Object.values(quickGroups).flat().flatMap(group =>
+  group.tasks.map(([id, task]) => [id, group.title + ' ' + task])
+));
 
 const searchText = new Map(apis.map((api) => [
   api.id,
   [api.name, api.header, api.since, api.featureTest, api.level, api.brief, api.signature,
-    api.returns, api.pitfall, api.code, api.keywords, api.theory?.flat().join(' '),
+    api.returns, api.pitfall, api.code, api.keywords, taskLabels.get(api.id), api.theory?.flat().join(' '),
     categoryById.get(api.category)?.title ?? '',
     modules.find((module) => module.id === getApiDomain(api))?.title ?? '']
     .join(' ').toLocaleLowerCase()
@@ -30,6 +35,18 @@ let toastTimer;
 
 function badge(label, className = '') {
   return `<span class="badge ${className}">${escapeHtml(label)}</span>`;
+}
+
+function renderQuickStart() {
+  const groups = quickGroups[activeModule] ?? [];
+  byId('quickStart').hidden = groups.length === 0;
+  byId('quickGroups').innerHTML = groups.map(({ title, tasks }, index) => `
+    <details class="quick-group"${index === 0 ? ' open' : ''}>
+      <summary>${escapeHtml(title)} <small>${tasks.length} 项</small></summary>
+      <div class="quick-grid">${tasks.map(([id, task]) => `
+        <a href="#api-${escapeHtml(id)}"><span>${escapeHtml(task)}</span><code>${escapeHtml(apiById.get(id).name)}</code></a>`
+      ).join('')}</div>
+    </details>`).join('');
 }
 
 function renderTheory(api) {
@@ -182,11 +199,6 @@ function applyFilters() {
       || !apis.some((api) => api.category === category.id && matches(api));
   }
 
-  document.querySelectorAll('.quick-grid a').forEach((anchor) => {
-    anchor.hidden = anchor.dataset.module !== activeModule;
-  });
-
-  byId('quickStart').hidden = !hasModuleEntries;
   byId('resultCount').textContent = `显示 ${visible} / ${moduleApis.length} 条`;
   byId('emptyState').hidden = visible !== 0;
   byId('apiContent').hidden = visible === 0;
@@ -230,6 +242,7 @@ function resetFilters() {
 function setModule(moduleId) {
   if (!modules.some((module) => module.id === moduleId)) return;
   activeModule = moduleId;
+  renderQuickStart();
   activeFilter = 'all';
   query = '';
   byId('searchInput').value = '';
@@ -283,6 +296,7 @@ function openApiTarget(id) {
 }
 
 renderHandbook();
+renderQuickStart();
 syncFilterButtons();
 applyFilters();
 

@@ -1,5 +1,81 @@
 export const practiceApis = [
   {
+    id: 'upload-row-pitch', category: 'cpp-buffer', name: '纹理上传：row pitch / std::memcpy',
+    header: '<array>、<cstddef>、<cstring>', since: 'C++17', level: 'A',
+    brief: '把紧密排列的 CPU 像素复制到每行末尾带填充的上传缓冲。',
+    signature: 'std::memcpy(dst + y * dstPitch, src + y * srcPitch, rowBytes);',
+    returns: '逐行复制有效像素，目标行末的填充字节保持原值。',
+    pitfall: 'pitch 以字节计。目标跨度取设备或映射接口给出的值。动态输入要检查每行长度、总范围及乘法溢出；块压缩纹理要按压缩块行计算。',
+    code: `// 两行 RGBA8，每行三个像素；示例目标每行占 16 字节
+constexpr std::size_t rowBytes = 3 * 4, dstPitch = 16, height = 2;
+std::array<std::byte, rowBytes * height> src{};
+std::array<std::byte, dstPitch * height> dst{};
+src[rowBytes] = std::byte{0xff};  // 第二行的第一个通道
+for (std::size_t y = 0; y < height; ++y) {
+    std::memcpy(dst.data() + y * dstPitch, src.data() + y * rowBytes, rowBytes);
+}
+// dst[16] 为 0xff，第一行的填充 dst[12..15] 仍为零`,
+    keywords: '纹理上传 行跨度 行对齐 pitch stride staging RGBA8'
+  },
+  {
+    id: 'pixel-unorm', category: 'cpp-render-numeric', name: 'UNORM8 量化：std::clamp / std::lround',
+    header: '<algorithm>、<cmath>、<cstdint>', since: 'C++17', level: 'A',
+    brief: '将浮点遮罩或颜色通道编码成 8 位无符号归一化整数。',
+    signature: 'round(clamp(x, 0, 1) * 255)',
+    returns: '得到 0 到 255 的整数。归一化解码可用 float(byte) / 255.f。',
+    pitfall: '示例约定所有非有限输入写为零。量化只改变数值表示；写入 sRGB 颜色数据还要处理传递函数，粗糙度等数据纹理通常按线性值处理。',
+    code: `auto pack = [](float x) -> std::uint8_t {
+    if (!std::isfinite(x)) return 0;
+    float unit = std::clamp(x, 0.f, 1.f);
+    return static_cast<std::uint8_t>(std::lround(unit * 255.f));
+};
+auto mid = pack(0.5f);  // 128
+auto white = pack(1.2f);  // 255`,
+    keywords: '像素打包 UNORM 通道量化 遮罩 颜色格式'
+  },
+  {
+    id: 'fixed-step', category: 'numeric', name: '固定步长累加器与渲染插值',
+    header: '<algorithm>、<chrono>', since: 'C++17', level: 'A',
+    brief: '按固定频率更新模拟，用一帧中未消费的时间计算渲染插值系数。',
+    signature: 'while (lag >= step) { simulate(step); lag -= step; }',
+    returns: '示例到达第 25 毫秒时模拟两次，剩余 5 毫秒，插值系数为 0.5。',
+    pitfall: 'lag 和前后两次模拟状态都要跨帧保留。示例每帧最多接受 50 毫秒以限制追帧开销，会主动丢弃超额时间。需要真实时间一致性的模拟应另行规定追帧策略。',
+    code: `using namespace std::chrono_literals;
+constexpr auto step = 10ms;  // 100 Hz
+auto lag = 0ms;
+int ticks = 0;
+auto frame = [&](std::chrono::milliseconds elapsed) {
+    lag += std::clamp(elapsed, 0ms, 50ms);
+    while (lag >= step) {
+        ++ticks;  // 在此用 step 推进一次模拟
+        lag -= step;
+    }
+    return static_cast<double>(lag.count()) / step.count();
+};
+double alpha = frame(25ms);  // ticks == 2，alpha == 0.5`,
+    keywords: '游戏循环 delta time timestep 物理 追帧 帧率 插值'
+  },
+  {
+    id: 'keyframe-bracket', category: 'algorithm', name: '关键帧区间：upper_bound / lerp',
+    header: '<algorithm>、<array>、<cmath>、<iterator>', since: 'C++20', level: 'A',
+    brief: '在按时间排序的动画轨道上找到相邻关键帧，并插值一个标量通道。',
+    signature: 'std::ranges::upper_bound(keys, t, {}, &Key::time)',
+    returns: '找出第一帧时间严格大于 t 的关键帧，再与它的前一帧配对。轨道两端保持端点值。',
+    pitfall: '示例轨道非空，时间有限且严格递增。导入可变长轨道时须处理空轨和重复时间；旋转轨道需要四元数插值。',
+    code: `struct Key { float time, value; };
+std::array<Key, 3> keys{{{0, 0}, {1, 10}, {3, 30}}};
+auto sample = [&](float t) {
+    auto hi = std::ranges::upper_bound(keys, t, {}, &Key::time);
+    if (hi == keys.begin()) return keys.front().value;
+    if (hi == keys.end()) return keys.back().value;
+    const auto& lo = *std::prev(hi);
+    float u = (t - lo.time) / (hi->time - lo.time);
+    return std::lerp(lo.value, hi->value, u);
+};
+float value = sample(2.f);  // 20`,
+    keywords: '动画 关键帧 轨道 二分查找 时间采样 标量插值'
+  },
+  {
     id: 'mesh-iota', category: 'algorithm', name: 'std::iota',
     header: '<numeric>、<array>', since: 'C++11', level: 'A',
     brief: '给导入网格生成从零开始的连续索引。',

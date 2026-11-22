@@ -36,7 +36,7 @@
         <h1 id="pageTitle">查得到，看得懂，<br>能直接放进代码里。</h1>
         <p class="intro-copy">按技术模块和用途整理常用 API、图形学数学、语言规则、对象生命周期与示例。每条都回答：是什么、怎么用、返回什么、哪里容易错。</p>
         <div class="stats" aria-label="手册概况">
-          <span><strong id="totalCount">319</strong> 个常用主题</span>
+          <span><strong id="totalCount">323</strong> 个常用主题</span>
           <span><strong id="categoryCount">34</strong> 个用途分类</span>
           <span><strong id="moduleCount">5</strong> 个技术模块</span>
         </div>
@@ -49,49 +49,7 @@
 
       <section id="quickStart" class="quick-start" aria-labelledby="quickTitle">
         <h2 id="quickTitle">我想做什么？</h2>
-        <div class="quick-grid">
-          <a data-module="cpp" href="#api-string-view"><span>拆分一行文本</span><code>string_view</code></a>
-          <a data-module="cpp" href="#api-from-chars"><span>严格解析数字</span><code>from_chars</code></a>
-          <a data-module="cpp" href="#api-vector"><span>保存动态顶点</span><code>vector</code></a>
-          <a data-module="cpp" href="#api-span"><span>传入只读数组</span><code>span</code></a>
-          <a data-module="cpp" href="#api-find-if"><span>查找非法索引</span><code>find_if</code></a>
-          <a data-module="cpp" href="#api-format"><span>格式化调试信息</span><code>format</code></a>
-          <a data-module="cpp" href="#api-filesystem-path"><span>处理模型路径</span><code>filesystem::path</code></a>
-          <a data-module="cpp" href="#api-unique-ptr"><span>管理独占资源</span><code>unique_ptr</code></a>
-          <a data-module="cpp" href="#api-lambda-weak-event"><span>让过期回调安全退出</span><code>weak_from_this</code></a>
-          <a data-module="cpp" href="#api-call-bind-front"><span>把成员函数交给队列</span><code>bind_front</code></a>
-          <a data-module="cpp" href="#api-pp-evaluation"><span>排查宏里的重复调用</span><code>#define</code></a>
-          <a data-module="cpp" href="#api-vertex-layout"><span>填写顶点属性偏移</span><code>offsetof</code></a>
-          <a data-module="cpp" href="#api-frame-arena"><span>回收帧内临时内存</span><code>monotonic_buffer_resource</code></a>
-          <a data-module="cpp" href="#api-bvh-nth"><span>拆分 BVH 节点</span><code>nth_element</code></a>
-          <a data-module="cpp" href="#api-texture-bits"><span>计算 Mip 链层数</span><code>bit_width</code></a>
-          <a data-module="cpp" href="#api-load-latch"><span>等待一批资源就绪</span><code>latch</code></a>
-          <a data-module="unreal" href="#api-ue-uproperty"><span>标记蓝图属性</span><code>UPROPERTY</code></a>
-          <a data-module="unreal" href="#api-ue-spawn-actor"><span>在世界里生成 Actor</span><code>SpawnActor</code></a>
-          <a data-module="unreal" href="#api-ue-tobject-ptr"><span>保存 UObject 引用</span><code>TObjectPtr</code></a>
-          <a data-module="unreal" href="#api-ue-dynamic-delegate"><span>广播 Gameplay 事件</span><code>动态委托</code></a>
-          <a data-module="graphics" href="#api-gfx-dot-projection"><span>计算向量夹角</span><code>dot / projection</code></a>
-          <a data-module="graphics" href="#api-gfx-matrix-composition"><span>检查 MVP 顺序</span><code>P · V · M</code></a>
-          <a data-module="graphics" href="#api-gfx-rodrigues-rotation"><span>绕任意轴旋转向量</span><code>Rodrigues</code></a>
-          <a data-module="graphics" href="#api-gfx-normal-matrix"><span>修正缩放后的法线</span><code>inverse transpose</code></a>
-          <a data-module="graphics" href="#api-gfx-barycentric"><span>插值三角形属性</span><code>barycentric</code></a>
-          <a data-module="graphics" href="#api-gfx-perspective-correct"><span>校正透视 UV</span><code>perspective correct</code></a>
-          <a data-module="graphics" href="#api-gfx-moller-trumbore"><span>射线拾取三角形</span><code>Möller–Trumbore</code></a>
-          <a data-module="graphics" href="#api-gfx-ray-aabb"><span>测试 BVH 包围盒</span><code>ray / AABB</code></a>
-          <a data-module="graphics" href="#api-gfx-cosine-hemisphere"><span>生成路径追踪方向</span><code>cosine hemisphere</code></a>
-          <a data-module="graphics" href="#api-gfx-lerp-remap"><span>把数值映射到另一个区间</span><code>inverse lerp / remap</code></a>
-          <a data-module="graphics" href="#api-gfx-affine-inverse"><span>把世界坐标转回本地坐标</span><code>affine inverse</code></a>
-          <a data-module="graphics" href="#api-gfx-unproject-screen"><span>从鼠标位置生成拾取射线</span><code>unproject</code></a>
-          <a data-module="graphics" href="#api-gfx-depth-linearization"><span>从深度缓冲还原距离</span><code>linear depth</code></a>
-          <a data-module="hlsl" href="#api-hlsl-cpp-control"><span>用熟悉的 C++ 写法入门</span><code>if / for / any / all</code></a>
-          <a data-module="hlsl" href="#api-hlsl-matrix-mul"><span>把 MVP 矩阵传给着色器</span><code>mul / column_major</code></a>
-          <a data-module="hlsl" href="#api-hlsl-vertex-position"><span>把顶点位置交给光栅化器</span><code>SV_Position</code></a>
-          <a data-module="hlsl" href="#api-hlsl-pixel-target"><span>输出像素颜色</span><code>SV_Target</code></a>
-          <a data-module="hlsl" href="#api-hlsl-cbuffer"><span>把 CPU 参数传给着色器</span><code>cbuffer</code></a>
-          <a data-module="hlsl" href="#api-hlsl-register"><span>确认槽号和资源绑定</span><code>register / space</code></a>
-          <a data-module="hlsl" href="#api-hlsl-texture-sample"><span>按 UV 读取纹理颜色</span><code>Sample / SampleLevel</code></a>
-          <a data-module="hlsl" href="#api-hlsl-dispatch"><span>让每个线程处理一个元素</span><code>numthreads / Dispatch</code></a>
-        </div>
+        <div id="quickGroups"></div>
       </section>
 
       <section class="reading-note" aria-labelledby="noteTitle">
