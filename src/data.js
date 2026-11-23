@@ -11,6 +11,7 @@ import { lambdaApis } from './data-lambdas.js';
 import { callableApis } from './data-callables.js';
 import { unrealCategories, unrealApis } from './data-unreal.js';
 import { gameplayCategories, gameplayApis } from './data-unreal-gameplay.js';
+import { lyraCategories, lyraApis } from './data-lyra.js';
 import { graphicsCategories, graphicsApis } from './data-graphics.js';
 import { graphicsMathCategory, graphicsMathApis } from './data-graphics-math.js';
 import { graphicsTheory } from './data-graphics-theory.js';
@@ -28,6 +29,7 @@ export const categories = [
   ...[...standardCategories, ...engineCppCategories].map((category) => ({ ...category, domain: 'cpp' })),
   ...unrealCategories,
   ...gameplayCategories,
+  ...lyraCategories,
   graphicsMathCategory,
   ...graphicsCategories,
   ...hlslCategories
@@ -46,6 +48,7 @@ export const apis = [
   ...callableApis,
   ...unrealApis,
   ...gameplayApis,
+  ...lyraApis,
   ...[...graphicsApis, ...graphicsMathApis].map((api) => ({
     ...api,
     theory: graphicsTheory[api.id]

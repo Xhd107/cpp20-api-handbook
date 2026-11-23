@@ -2,7 +2,7 @@
 
 **在线阅读：[https://xhd107.github.io/dev-handbook/](https://xhd107.github.io/dev-handbook/)**
 
-面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **365 个主题、42 个用途分类**，其中标准 C++ 225 条，Unreal C++ 73 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
+面向日常开发的中文速查手册，按 **标准 C++、Unreal C++、图形学、Vulkan、HLSL** 五个顶级模块组织。当前包含 **381 个主题、46 个用途分类**，其中标准 C++ 225 条，Unreal C++ 89 条，图形学 46 条，HLSL 21 条。Vulkan 已建立独立入口，正文待补充。
 
 支持当前模块内全文搜索、学习优先级筛选、分类导航、条目折叠和示例代码复制。标准 C++ 可分别筛选 C++20、C++23、C++26 新增内容。版本标签说明主题特性的引入版本，示例默认使用现代 C++ 写法。C++23、C++26 条目提供特性检测条件或试编译说明，并链接到工作草案。“我想做什么？”按开发任务分组，可展开各组直达带示例的正文，也可在模块内搜索任务名称。切换模块会同步切换分类和快捷入口，API 深链接可自动进入对应模块。
 
@@ -46,6 +46,7 @@ npm run build
 - `src/data-callables.js`：函数对象与成员指针、回调适配、参数绑定、算法投影及事件和任务分派
 - `src/data-cpp23.js`、`src/data-cpp26.js`：按标准版本维护的语言与库特性；每条提供 `featureTest` 条件
 - `src/data-unreal-gameplay.js`：UE5 玩法功能，含独立头文件、Build.cs 模块、蓝图与关卡配置、试玩验证和官方文档。
+- `src/data-lyra.js`：以 UE 5.8 的 Lyra 为参考，按体验、技能、装备和比赛规则整理调用示例。示例放在 Lyra 项目的 `LyraGame` 模块中，依赖 Lyra 自己的类型及其启用的插件。
 - `src/data-unreal.js`：Unreal 反射宏、对象生命周期、引用类型和 Gameplay 工具
 - `src/data-graphics.js`：图形学数学、空间变换、投影、求交、着色和采样
 - `src/data-graphics-math.js`：标量插值、数值误差、常用几何查询、逆变换、深度重建与切线空间

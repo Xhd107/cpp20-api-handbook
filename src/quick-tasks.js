@@ -1,4 +1,5 @@
 import { gameplayCategories, gameplayApis } from './data-unreal-gameplay.js';
+import { lyraCategories, lyraApis } from './data-lyra.js';
 
 export const quickGroups = {
   cpp: [
@@ -173,6 +174,10 @@ export const quickGroups = {
     ...gameplayCategories.map(({ id, title }) => ({
       title,
       tasks: gameplayApis.filter(api => api.category === id).map(api => [api.id, api.name])
+    })),
+    ...lyraCategories.map(({ id, title }) => ({
+      title,
+      tasks: lyraApis.filter(api => api.category === id).map(api => [api.id, api.name])
     })),
     { title: '工程模块、反射与蓝图', tasks: [
       ['ue-modules', '声明模块依赖'],
